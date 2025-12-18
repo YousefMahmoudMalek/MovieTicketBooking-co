@@ -4,7 +4,7 @@
  */
 package UI;
 
-import model.SessionManager;
+import patterns.singleton.SessionManagerSingleton;
 
 /**
  *
@@ -242,8 +242,7 @@ public class SignUpFrame extends javax.swing.JFrame {
         String user = emailTextField.getText().trim();
         String pw = new String(PasswordField.getPassword());
         String name = nameTextField.getText().trim();
-        // register in SessionManager
-        boolean ok = SessionManager.getInstance().register(user, pw);
+        boolean ok = SessionManagerSingleton.getInstance().register(user, pw);
         if (ok) {
             javax.swing.JOptionPane.showMessageDialog(this, "Account created: " + user);
             LoginFrame frame = new LoginFrame();

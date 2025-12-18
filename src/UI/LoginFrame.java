@@ -4,7 +4,7 @@
  */
 package UI;
 
-import model.SessionManager;
+import patterns.singleton.SessionManagerSingleton;
 
 /**
  *
@@ -223,7 +223,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String user = emailTextField.getText().trim();
         String pw = new String(PasswordField.getPassword());
-        if (SessionManager.getInstance().login(user, pw)) {
+        if (SessionManagerSingleton.getInstance().login(user, pw)) {
             // open main menu
             MainMenuFrame frame = new MainMenuFrame(user);
             this.dispose();

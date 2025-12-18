@@ -5,6 +5,7 @@
 package UI;
 
 import model.Show;
+import patterns.singleton.SessionManagerSingleton;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -147,7 +148,7 @@ public class DisplayInfo extends javax.swing.JFrame {
     }
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        model.SessionManager.getInstance().logout(user);
+        SessionManagerSingleton.getInstance().logout(user);
         LoginFrame frame = new LoginFrame();
         this.dispose();
         frame.setVisible(true);

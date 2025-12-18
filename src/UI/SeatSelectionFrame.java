@@ -21,6 +21,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
     private String user;
     private BookingController controller = new BookingController();
     private Map<String, java.awt.Checkbox> seatMap;
+    private boolean[][] seats; // Added seats array to track seat availability
 
     public SeatSelectionFrame() {
         initComponents();
@@ -80,18 +81,23 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
         if (show == null || seatMap == null) return;
         int rows = show.getRows();
         int cols = show.getCols();
+        seats = new boolean[rows][cols]; // Initialize seats array
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
                 String label = "" + (char)('A' + r) + (c+1);
                 java.awt.Checkbox cb = seatMap.get(label);
                 if (cb != null) {
-                    if (show.isReserved(r, c)) {
-                        cb.setEnabled(false);
-                        cb.setLabel(label + " (X)");
-                    } else {
-                        cb.setEnabled(true);
-                        cb.setLabel(label);
-                        cb.setState(false);
+                    if (r < seats.length && c < seats[r].length) {
+                        if (show.isReserved(r, c)) {
+                            cb.setEnabled(false);
+                            cb.setLabel(label + " (X)");
+                            seats[r][c] = true; // Mark seat as reserved
+                        } else {
+                            cb.setEnabled(true);
+                            cb.setLabel(label);
+                            cb.setState(false);
+                            seats[r][c] = false; // Mark seat as available
+                        }
                     }
                 }
             }
@@ -107,7 +113,9 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
                 String label = cb.getLabel().split(" ")[0];
                 int row = label.charAt(0) - 'A';
                 int col = Integer.parseInt(label.substring(1)) - 1;
-                selected.add(new int[]{row, col});
+                if (row >= 0 && row < show.getRows() && col >= 0 && col < show.getCols()) {
+                    selected.add(new int[]{row, col});
+                }
             }
         }
         if (selected.isEmpty()) { javax.swing.JOptionPane.showMessageDialog(this, "Select at least one seat"); return; }
@@ -121,7 +129,7 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
             this.dispose();
             frame.setVisible(true);
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Booking failed (maybe seats taken or not logged in).");
+            javax.swing.JOptionPane.showMessageDialog(this, "Booking failed (maybe seats taken, insufficient balance, or not logged in).");
             updateSeatAvailability();
         }
     }
