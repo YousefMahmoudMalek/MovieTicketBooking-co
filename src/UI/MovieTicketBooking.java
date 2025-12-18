@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package UI;
+
+import patterns.singleton.BookingSystemSingleton;
 
 /**
  *
@@ -10,6 +8,8 @@ package UI;
  */
 public class MovieTicketBooking {
     public static void main(String[] args) {
+       BookingSystemSingleton.getInstance();
+       
        LoginFrame login = new LoginFrame();
        login.setVisible(true);
        login.setResizable(false);
