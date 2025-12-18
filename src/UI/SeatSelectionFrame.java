@@ -118,11 +118,13 @@ public class SeatSelectionFrame extends javax.swing.JFrame {
                 }
             }
         }
-        if (selected.isEmpty()) { javax.swing.JOptionPane.showMessageDialog(this, "Select at least one seat"); return; }
-        if (selected.size() > this.maxSeats) {
-            javax.swing.JOptionPane.showMessageDialog(this, "You selected more than the allowed number of seats.");
+        
+        if (selected.size() != this.maxSeats) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "You must select exactly " + this.maxSeats + " seat(s). Currently selected: " + selected.size());
             return;
         }
+        
         boolean ok = controller.reserveTickets(user, show, selected);
         if (ok) {
             DisplayInfo frame = new DisplayInfo(user, show, selected);

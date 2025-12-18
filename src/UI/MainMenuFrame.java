@@ -43,7 +43,7 @@ public class MainMenuFrame extends javax.swing.JFrame {
         currentShows = controller.searchShowsByGenre(genre);
         javax.swing.DefaultListModel<String> lm = new javax.swing.DefaultListModel<>();
         for (Show s : currentShows) {
-            lm.addElement(s.getMovie().getTitle() + " @ " + s.getTime() + " (" + s.getTheater().getName() + ")");
+            lm.addElement(s.getMovie().getTitle() + " @ " + s.getTime() + " (" + s.getTheater().getName() + ") - $" + String.format("%.2f", s.getPrice()));
         }
         jList1.setModel(lm);
     }
