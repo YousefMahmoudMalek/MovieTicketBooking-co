@@ -18,7 +18,7 @@ public class ShowBuilder {
     public ShowBuilder setPrice(double p) { this.price = p; return this; }
 
     public Show build() {
-        if (movie == null) throw new IllegalStateException("movie null");
+        if (movie == null) movie = patterns.factory.MovieFactory.createMovie("Action", "Default Movie");
         if (theater == null) theater = new Theater("Main Hall");
         return new Show(movie, theater, time == null ? "20:00" : time, rows, cols, price);
     }

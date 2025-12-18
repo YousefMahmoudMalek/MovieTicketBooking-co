@@ -20,12 +20,12 @@ public class Show {
     public int getCols() { return seats[0].length; }
     public double getPrice() { return price; }
 
-    public synchronized boolean isReserved(int r, int c) { return seats[r][c]; }
-    public synchronized boolean reserveSeat(int r, int c) {
+    public boolean isReserved(int r, int c) { return seats[r][c]; }
+    public boolean reserveSeat(int r, int c) {
         if (seats[r][c]) return false;
         seats[r][c] = true; // temp reserve
         return true;
     }
-    public synchronized void releaseSeat(int r, int c) { seats[r][c] = false; }
-    public synchronized void confirmSeat(int r, int c) { seats[r][c] = true; }
+    public void releaseSeat(int r, int c) { seats[r][c] = false; }
+    public void confirmSeat(int r, int c) { seats[r][c] = true; }
 }

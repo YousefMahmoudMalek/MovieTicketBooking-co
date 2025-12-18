@@ -11,28 +11,32 @@ import java.util.*;
 public class HardcodedData {
     
     public static void initializeUsers() {
+        // Demonstrating singleton pattern: getting two references to same instance
         SessionManagerSingleton session1 = SessionManagerSingleton.getInstance();
         SessionManagerSingleton session2 = SessionManagerSingleton.getInstance();
         
-        // Both references point to the same instance (demonstrating singleton)
-        System.out.println("Singleton check: session1 == session2? " + (session1 == session2));
+        // Add users through first reference
+        session1.register("alice", "pass1");
+        session1.setBalance("alice", 150.0);
+        session1.setCurrency("alice", "EUR");
         
-        // Add hardcoded users with different currencies to demonstrate adapter pattern
-        session1.register("charlie", "pass3");
-        session1.setBalance("charlie", 250.0);
-        session1.setCurrency("charlie", "USD");
+        session1.register("bob", "pass2");
+        session1.setBalance("bob", 200.0);
+        session1.setCurrency("bob", "EGP");
         
-        // Using session2 (same singleton instance) to add more users
+        // Add users through second reference (same instance)
+        session2.register("charlie", "pass3");
+        session2.setBalance("charlie", 250.0);
+        session2.setCurrency("charlie", "USD");
+        
         session2.register("diana", "pass4");
         session2.setBalance("diana", 180.0);
         session2.setCurrency("diana", "EUR");
         
+        // Mix between both references to show they're the same instance
         session1.register("eve", "pass5");
         session1.setBalance("eve", 300.0);
-        session1.setCurrency("eve", "GBP");
-        
-        // Verify they're all in the same instance
-        System.out.println("Total users via session1: charlie, diana, eve added");
+        session1.setCurrency("eve", "EGP");
     }
     
     public static List<Show> createSampleShows() {

@@ -24,10 +24,6 @@ public class TicketPrototype implements Cloneable {
     public double getPrice() { return price; }
 
     public TicketPrototype cloneTicket() {
-        try {
-            return (TicketPrototype) super.clone();
-        } catch (CloneNotSupportedException e) {
-            return new TicketPrototype(movieTitle, show, row, col, price);
-        }
+        return new TicketPrototype(movieTitle, show, row, col, price);
     }
 }

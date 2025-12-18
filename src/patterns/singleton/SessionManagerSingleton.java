@@ -7,16 +7,10 @@ public class SessionManagerSingleton {
     private final Map<String, String> users = new HashMap<>(); // username -> password
     private final Set<String> authenticated = new HashSet<>();
     private final Map<String, Double> userBalance = new HashMap<>();
-    private final Map<String, String> userCurrency = new HashMap<>(); // username -> currency code (USD, EUR, GBP)
+    private final Map<String, String> userCurrency = new HashMap<>(); // username -> currency code (USD, EUR, EGP)
 
     private SessionManagerSingleton() {
-        // hardcoded users with initial balance
-        users.put("alice", "pass1");
-        users.put("bob", "pass2");
-        userBalance.put("alice", 150.0);
-        userCurrency.put("alice", "EUR");
-        userBalance.put("bob", 200.0);
-        userCurrency.put("bob", "GBP");
+        // Empty constructor - users initialized in HardcodedData
     }
 
     public static SessionManagerSingleton getInstance() { return INSTANCE; }
@@ -34,7 +28,7 @@ public class SessionManagerSingleton {
     public boolean isAuthenticated(String username) { return authenticated.contains(username); }
 
     // allow new user registration
-    public synchronized boolean register(String username, String password) {
+    public boolean register(String username, String password) {
         if (users.containsKey(username)) return false;
         users.put(username, password);
         userBalance.put(username, 100.0);
